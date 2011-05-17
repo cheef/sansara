@@ -1,0 +1,1 @@
+class Carousel.Container.Wrapper  extends Carousel.Container.Base
