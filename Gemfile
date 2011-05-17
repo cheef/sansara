@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.1.0.beta1'
+gem "rails",  :git => "git://github.com/rails/rails.git"
 gem 'sqlite3'
 
 # Asset template engines
@@ -13,5 +13,6 @@ gem 'haml'
 
 group :test do
   gem 'turn', :require => false
+  gem "jasmine"
 #  gem 'ruby-debug19', :require => 'ruby-debug'
 end
