@@ -1,13 +1,23 @@
 class Carousel.Container
   constructor: (@element, @params) ->
-    $(@element).addClass 'b-carousel-viewport'
-    $(@element).css
-      width: $(@element).outerWidth()
-      top: 0
-      left: 0
-    this.setViewport()
-    this.setWrapper()
-    this.setControls()
+    carousel.subscribe 'draw', (carousel) ->
+      carousel.trigger('container.viewport.create')
+      carousel.trigger('container.wrapper.create')
+      carousel.trigger('container.controls.create')
+
+  bindings:
+    'viewport.create': (carousel) ->
+      @viewport = new Carousel.Container.Viewport(@element, 'l-carousel-viewport')
+      @viewport.draw()
+      @viewport.element.css
+        width:  this.getViewportWidth()
+        height: this.getViewportHeight()
+
+    'wrapper.create': (carousel) ->
+      @wrapper = new Carousel.Container.Wrapper(@viewport.element, 'l-carousel')
+      @wrapper.draw()
+
+
   setViewport: ->
     @viewport = new Carousel.Container.Viewport(@element, 'l-carousel-viewport')
     @viewport.draw()
