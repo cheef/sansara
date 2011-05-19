@@ -1,44 +1,34 @@
 class Carousel
   constructor: (@element, params) ->
-    @params = $.extend(params || {}, @defaults)
-    @api = new Carousel.Api @
+    @params    = $.extend(params || {}, @defaults)
+    @api       = new Carousel.Api(this)
+    @container = new Carousel.Container(this)
 
-    this.subscribe 'initialize', (event) ->
-      this.subscribe this.bindings
+    this.subscribe 'initialize', (event) ->  this.subscribe @bindings
     this.trigger 'initialize'
     this.trigger 'draw'
-
-  # methods
 
   draw:     -> this.trigger 'draw'
   next:     -> this.trigger 'next'
   previous: -> this.trigger 'previous'
 
   trigger: ->
-    params = Array.prototype.slice.call(arguments ? [])
+    params = Carousel.Utils.arrayFromArguments(arguments)
     name   = params.shift()
-    throw "Trigger method should be called wit
-    h event name" unless name?
-    this.withDebug "triggering the '#{name}' event", ->  $(@element).triggerHandler(name, params)
+    self   = this
+    throw "Trigger method should be called with event name" unless name?
+    this.withDebug "triggering the '#{name}' event", ->
+      $(self.element).triggerHandler(name, params)
 
-  subscribe: (nameOrHash, callback) ->
-    if typeof nameOrHash is 'string'
-      bindings = {}
-      bindings[nameOrHash] = callback
-    else
-      bindings = nameOrHash
+  subscribe: ->
+    bindings = Carousel.Utils.parseMixedArguments(arguments)
+    self = this
 
-    if typeof bindings isnt 'object'
-      throw "First param should be string('foo') or hash ({ foo: function() {} })"
-
-    $(bindings).each (name, callback) ->
-      $(@element).bind name, $.proxy(callback, this)
-
-  # events
+    $.each bindings, (name, callback) ->
+      $(self.element).bind name, $.proxy(callback, self)
 
   bindings:
     draw: (event) ->
-      @container = new Carousel.Container(@element, @params)
     next: (event) ->
     previous: (event) ->
 
@@ -50,4 +40,7 @@ class Carousel
     direction: 'horizontal'
 
 $.fn.carousel = (params) ->
-  this.each -> $(this).data 'carousel', new Carousel(this, params)
+  this.each ->
+    carousel = new Carousel(this, params)
+    $(this).data 'carousel', carousel.api
+    window.trololo = carousel.api

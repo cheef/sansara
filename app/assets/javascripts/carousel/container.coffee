@@ -1,36 +1,31 @@
 class Carousel.Container
-  constructor: (@element, @params) ->
-    carousel.subscribe 'draw', (carousel) ->
-      carousel.trigger('container.viewport.create')
-      carousel.trigger('container.wrapper.create')
-      carousel.trigger('container.controls.create')
+  constructor: (@carousel) ->
+    @element = @carousel.element
+    @carousel.subscribe @bindings
 
   bindings:
-    'viewport.create': (carousel) ->
-      @viewport = new Carousel.Container.Viewport(@element, 'l-carousel-viewport')
-      @viewport.draw()
-      @viewport.element.css
-        width:  this.getViewportWidth()
-        height: this.getViewportHeight()
+    'draw': (event) -> this.trigger 'container.draw'
 
-    'wrapper.create': (carousel) ->
-      @wrapper = new Carousel.Container.Wrapper(@viewport.element, 'l-carousel')
+    'container.draw': (event) ->
+      this.trigger 'container.viewport.draw'
+      this.trigger 'container.wrapper.draw'
+
+    'container.viewport.draw': (event) ->
+      @container.viewport = new Carousel.Container.Viewport(@container.element, 'l-carousel-viewport')
+      @container.viewport.draw()
+      @container.viewport.element.css
+        width:  @container.getViewportWidth()
+        height: @container.getViewportHeight()
+
+    'container.wrapper.draw': (event) ->
+      @wrapper = new Carousel.Container.Wrapper(@container.viewport.element, 'l-carousel')
       @wrapper.draw()
 
+  getViewportWidth:  -> @carousel.params.width
+  getViewportHeight: -> @carousel.params.height
 
-  setViewport: ->
-    @viewport = new Carousel.Container.Viewport(@element, 'l-carousel-viewport')
-    @viewport.draw()
-    @viewport.element.css
-      width:  this.getViewportWidth()
-      height: this.getViewportHeight()
-  setWrapper: ->
-    @wrapper = new Carousel.Container.Wrapper(@viewport.element, 'l-carousel')
-    @wrapper.draw()
-  getViewportWidth:  -> @params.width  || this.itemMaxWidth()
-  getViewportHeight: -> @params.height || this.itemMaxHeight()
   setControls: ->
-    @leftControl = new Carousel.Container.Control(@wrapper.element, 'b-carousel-left-control')
+    @leftConwtrol = new Carousel.Container.Control(@wrapper.element, 'b-carousel-left-control')
     @leftControl.draw(method: 'prepend')
     @rightControl = new Carousel.Container.Control(@wrapper.element, 'b-carousel-right-control')
     @rightControl.draw(method: 'append')
