@@ -1,4 +1,3 @@
-Carousel = Carousel || {}
 class Carousel.Api
   constructor: (@carousel) ->
   trigger:   -> @carousel.trigger(arguments)

@@ -7,19 +7,21 @@ class Carousel.Container
     'draw': (event) -> this.trigger 'container.draw'
 
     'container.draw': (event) ->
+      $(@element).addClass 'b-carousel-items'
       this.trigger 'container.viewport.draw'
       this.trigger 'container.wrapper.draw'
 
     'container.viewport.draw': (event) ->
-      @container.viewport = new Carousel.Container.Viewport(@container.element, 'l-carousel-viewport')
+      console.log 'triggered draw of container'
+      @container.viewport = new Carousel.Container.Viewport(@container)
       @container.viewport.draw()
       @container.viewport.element.css
         width:  @container.getViewportWidth()
         height: @container.getViewportHeight()
 
     'container.wrapper.draw': (event) ->
-      @wrapper = new Carousel.Container.Wrapper(@container.viewport.element, 'l-carousel')
-      @wrapper.draw()
+#      @wrapper = new Carousel.Container.Wrapper(@container.viewport.element, 'l-carousel')
+#      @wrapper.draw()
 
   getViewportWidth:  -> @carousel.params.width
   getViewportHeight: -> @carousel.params.height

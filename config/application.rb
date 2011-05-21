@@ -49,6 +49,9 @@ module JqueryCarousel
     config.active_record.identity_map = true
 
     # Enable the asset pipeline
-    config.assets.enabled = true
+    config.assets.enabled     = true
+    config.assets.precompile += %w(helpers.js specs.js)
+    config.assets.paths      += [ Rails.root.join('spec', 'javascripts') ]
+
   end
 end
