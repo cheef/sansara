@@ -11,3 +11,11 @@ buildCarouselSandbox = ->
 setCarouselSandbox = ->
   setFixtures buildCarouselSandbox()
   $('#carousel')
+
+defineCarousel = (params = {}) ->
+  defaults =
+    width: 250
+    height: 250
+
+  sandbox = setCarouselSandbox()
+  sandbox.carousel $.extend(defaults, params)
