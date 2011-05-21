@@ -1,6 +1,7 @@
 server_url: 'http://localhost:3000'
 
 src_files:
+  - assets/jasmine-jquery.js
   - assets/application.js
   - assets/carousel.js
 
