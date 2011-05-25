@@ -5,20 +5,19 @@ describe "Carousel.Utils", ->
         expect( Carousel.Utils.arrayFromArguments arg ).toEqual []
 
     it "should converts 'arguments' object to array", ->
-      arg = -> arguments
-      expect( Carousel.Utils.arrayFromArguments arg ).toEqual []
+      @arg = -> arguments
+      expect( Carousel.Utils.arrayFromArguments @arg ).toEqual []
 
   describe "method parseMixedArguments", ->
-    arg = null
     beforeEach ->
-      arg = ['method', -> ]
+      @arg = ['method', -> ]
 
     it "should convert arguments to hash", ->
-      expect( typeof Carousel.Utils.parseMixedArguments(arg) ).toEqual 'object'
+      expect( typeof Carousel.Utils.parseMixedArguments(@arg) ).toEqual 'object'
 
     it "should correctly convert two-arguments execution", ->
-      expect( Carousel.Utils.parseMixedArguments(arg).method ).toBeDefined()
+      expect( Carousel.Utils.parseMixedArguments(@arg).method ).toBeDefined()
 
     it "should correctly convert one-argument execution", ->
-      arg = [ method: -> ]
-      expect( Carousel.Utils.parseMixedArguments(arg).method ).toBeDefined()
+      @arg = [ method: -> ]
+      expect( Carousel.Utils.parseMixedArguments(@arg).method ).toBeDefined()

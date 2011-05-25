@@ -1,28 +1,27 @@
 describe 'jquery-carousel', ->
-  it "should be in jQuery.fn", ->
+  it "should be in jQuery.fn list", ->
     expect(typeof $.fn.carousel).toBe 'function'
-
-  it "should be a function for element", ->
+  it "should be existed function for element", ->
     expect(typeof $(window).carousel).toBe 'function'
 
   describe 'when applying to an element', ->
-    sandbox = null
     beforeEach ->
-      sandbox = defineCarousel()
-
+      @sandbox = defineCarousel()
     it "should store carousel api to the it data", ->
-      expect(typeof sandbox.data('carousel')).toBe 'object'
-
+      expect(typeof @sandbox.data('carousel')).toBe 'object'
     it "should add 'b-carousel-items' class to it", ->
-      expect(sandbox).toHaveClass 'b-carousel-items'
+      expect(@sandbox).toHaveClass 'b-carousel-items'
+
+    for event in ['initialize', 'draw']
+      it "should define '#{event}' event", ->
+        expect($(@sandbox)).toHandle event
 
     describe 'and wrap it with viewport, that', ->
-      parent = null
       beforeEach ->
-        parent = sandbox.parent()
-
+        @parent = @sandbox.parent()
       it "should has 'b-carousel-viewport' class", ->
-        expect(parent).toHaveClass 'b-carousel-viewport'
+        expect(@parent).toHaveClass 'b-carousel-viewport'
 
-      it "should has an layout", ->
-        expect(parent.parent()).toHaveClass 'l-carousel-viewport'
+#      it "should has an layout", ->
+#        expect(parent.parent()).toHaveClass 'l-carousel-viewport'
+
