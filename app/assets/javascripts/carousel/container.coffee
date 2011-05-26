@@ -1,7 +1,6 @@
 class Carousel.Container
   constructor: (@carousel) ->
     @element = @carousel.element
-    self = this
     @carousel.api.subscribe 'initialize',
       ((event, api) -> api.subscribe @bindings, @), @
 
@@ -17,10 +16,8 @@ class Carousel.Container
     'draw.container': (event, api) ->
       $(@element)
         .addClass('b-carousel-items')
-        .css
-          width: this.width()
-          top: 0
-          left: 0
+        .css width: this.width()
+      api.move(to: 1)
 
   width: -> this.items().length * @viewport.width()
   items: -> $(@element).children('li')

@@ -1,8 +1,6 @@
 class Carousel
-
   constructor: (@element, params) ->
     @params = $.extend(params || {}, @defaults)
-    self    = this
 
     @api = new Carousel.Api(this)
     @api.subscribe 'initialize',
@@ -12,15 +10,18 @@ class Carousel
 
     @api.trigger 'initialize'
     @api.trigger 'draw' if @params.autorun
-
-  draw:     -> this.trigger 'draw'
-  next:     -> this.trigger 'next'
-  previous: -> this.trigger 'previous'
+    @current = 1
 
   bindings:
-    draw:     (event, api) ->
-    next:     (event, api) ->
+    draw: (event, api) ->
+    next: (event, api) ->
+      api.trigger 'move', to: @current + 1
+    move: (event, api, params) ->
+      $(@container.element).animate
+        left: -(@container.viewport.width() * params.to) + @container.viewport.width()
+      @current = params.to
     previous: (event, api) ->
+      api.trigger 'move', to: @current - 1
 
   defaults:
     direction: 'horizontal'

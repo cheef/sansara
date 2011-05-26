@@ -1,16 +1,20 @@
 class Carousel.Api
   constructor: (@carousel) ->
-  next:     -> @carousel.next.apply      @carousel, arguments
-  previous: -> @carousel.previous.apply  @carousel, arguments
-  trigger:  ->
+
+  draw: -> this.trigger 'draw'
+  next: -> this.trigger 'next'
+  move: (params) -> this.trigger 'move', params
+  previous:      -> this.trigger 'previous'
+
+  trigger:   ->
     params = Carousel.Utils.arrayFromArguments(arguments)
     name   = params.shift()
     throw "Trigger method should be called with event name" unless name?
     params.unshift this
-    this.debug "Triggering the '#{name}' event", ->
+    this.debug "Triggering the '#{name}' event with", params, ->
       $(@carousel.element).triggerHandler(name, params)
-  debug: (message, callback)->
-    window.console.log(message) if window.console && @carousel.params.debug
+  debug: (message, params, callback)->
+    window.console.log(message, params) if window.console && @carousel.params.debug
     callback.call this
 
   # Examples:
