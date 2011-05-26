@@ -1,46 +1,31 @@
 class Carousel
+
   constructor: (@element, params) ->
-    @params    = $.extend(params || {}, @defaults)
-    @api       = new Carousel.Api(this)
+    @params = $.extend(params || {}, @defaults)
+    self    = this
+
+    @api = new Carousel.Api(this)
+    @api.subscribe 'initialize', (event, api) -> api.subscribe self.bindings, self
+
     @container = new Carousel.Container(this)
 
-    this.subscribe 'initialize', (event) ->  this.subscribe @bindings
-    this.trigger 'initialize'
-    this.trigger 'draw'
+    @api.trigger 'initialize'
+    @api.trigger 'draw' if @params.autorun
 
   draw:     -> this.trigger 'draw'
   next:     -> this.trigger 'next'
   previous: -> this.trigger 'previous'
 
-  trigger: ->
-    params = Carousel.Utils.arrayFromArguments(arguments)
-    name   = params.shift()
-    self   = this
-    throw "Trigger method should be called with event name" unless name?
-    this.withDebug "triggering the '#{name}' event", ->
-      $(self.element).triggerHandler(name, params)
-
-  subscribe: ->
-    bindings = Carousel.Utils.parseMixedArguments(arguments)
-    self = this
-
-    $.each bindings, (name, callback) ->
-      $(self.element).bind name, $.proxy(callback, self)
-
   bindings:
-    draw: (event) ->
-    next: (event) ->
-    previous: (event) ->
-
-  withDebug: (message, callback) ->
-    console.log(message) if window.console && @params.debug
-    callback.call this
+    draw:     (event, api) ->
+    next:     (event, api) ->
+    previous: (event, api) ->
 
   defaults:
     direction: 'horizontal'
+    autorun: true
 
 $.fn.carousel = (params) ->
   this.each ->
     carousel = new Carousel(this, params)
     $(this).data 'carousel', carousel.api
-    window.trololo = carousel.api

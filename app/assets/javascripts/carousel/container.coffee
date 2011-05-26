@@ -1,23 +1,22 @@
 class Carousel.Container
   constructor: (@carousel) ->
     @element = @carousel.element
-    @carousel.subscribe @bindings
+    @carousel.api.subscribe @bindings, this
 
   bindings:
-    'draw': (event) -> this.trigger 'container.draw'
+    'draw': (event, api) -> api.trigger 'container.draw'
 
-    'container.draw': (event) ->
+    'container.draw': (event, api) ->
       $(@element).addClass 'b-carousel-items'
-      this.trigger 'container.viewport.draw'
-      this.trigger 'container.wrapper.draw'
+      api.trigger 'container.viewport.draw'
+      api.trigger 'container.wrapper.draw'
 
-    'container.viewport.draw': (event) ->
-      console.log 'triggered draw of container'
-      @container.viewport = new Carousel.Container.Viewport(@container)
-      @container.viewport.draw()
-      @container.viewport.element.css
-        width:  @container.getViewportWidth()
-        height: @container.getViewportHeight()
+    'container.viewport.draw': (event, api) ->
+      @viewport = new Carousel.Container.Viewport(this)
+      @viewport.draw()
+      @viewport.element.css
+        width:  this.getViewportWidth()
+        height: this.getViewportHeight()
 
     'container.wrapper.draw': (event) ->
 #      @wrapper = new Carousel.Container.Wrapper(@container.viewport.element, 'l-carousel')
