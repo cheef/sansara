@@ -1,37 +1,26 @@
 class Carousel.Container
   constructor: (@carousel) ->
     @element = @carousel.element
-    @carousel.api.subscribe @bindings, this
+    self = this
+    @carousel.api.subscribe 'initialize',
+      ((event, api) -> api.subscribe @bindings, @), @
 
   bindings:
-    'draw': (event, api) -> api.trigger 'container.draw'
-
-    'container.draw': (event, api) ->
-      $(@element).addClass 'b-carousel-items'
-      api.trigger 'container.viewport.draw'
-      api.trigger 'container.wrapper.draw'
-
-    'container.viewport.draw': (event, api) ->
-      @viewport = new Carousel.Container.Viewport(this)
+    'draw.viewport': (event, api) ->
+      @viewport = new Carousel.Container.Viewport(@element, @carousel)
       @viewport.draw()
-      @viewport.element.css
-        width:  this.getViewportWidth()
-        height: this.getViewportHeight()
 
-    'container.wrapper.draw': (event) ->
-#      @wrapper = new Carousel.Container.Wrapper(@container.viewport.element, 'l-carousel')
-#      @wrapper.draw()
+    'draw.wrapper': (event, api) ->
+      @wrapper = new Carousel.Container.Wrapper(@viewport.layout, @carousel)
+      @wrapper.draw()
 
-  getViewportWidth:  -> @carousel.params.width
-  getViewportHeight: -> @carousel.params.height
+    'draw.container': (event, api) ->
+      $(@element)
+        .addClass('b-carousel-items')
+        .css
+          width: this.width()
+          top: 0
+          left: 0
 
-  setControls: ->
-    @leftConwtrol = new Carousel.Container.Control(@wrapper.element, 'b-carousel-left-control')
-    @leftControl.draw(method: 'prepend')
-    @rightControl = new Carousel.Container.Control(@wrapper.element, 'b-carousel-right-control')
-    @rightControl.draw(method: 'append')
-
+  width: -> this.items().length * @viewport.width()
   items: -> $(@element).children('li')
-  itemMaxHeight: -> $(@element).height()
-  itemMaxWidth: ->
-    Math.round( $(@element).width() / items.size() )

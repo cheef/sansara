@@ -25,7 +25,3 @@ Carousel.Utils =
       throw "First param should be a string or hash, but received #{typeof bindings}"
 
     [ bindings, context ]
-
-  debugWrapper: (context, message, callback) ->
-    console.log(message) if window.console && @params.debug
-    callback.apply context

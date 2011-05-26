@@ -1,7 +1,14 @@
 class Carousel.Container.Viewport
-  constructor: (@container) ->
+  constructor: (@container, @carousel) ->
+    @element = $('<div>').addClass('b-carousel-viewport')
+    @layout  = $('<div>').addClass('l-carousel-viewport').html(@element)
   draw: ->
-    layout    = $('<div>').addClass('l-carousel-viewport')
-    container = $('<div>').addClass('b-carousel-viewport')
-    $(@container.element).wrap(container)
-    @element = $(@container.element).parent('.b-carousel-viewport')
+    $(@container).wrap(@layout)
+    @element = $(@container).parent('.b-carousel-viewport')
+    @layout  = $(@element).parent('.l-carousel-viewport')
+    @element.css
+      width:  this.width()
+      height: this.height()
+
+  width:  -> @carousel.params.width
+  height: -> @carousel.params.height

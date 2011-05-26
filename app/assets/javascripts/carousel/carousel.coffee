@@ -5,7 +5,8 @@ class Carousel
     self    = this
 
     @api = new Carousel.Api(this)
-    @api.subscribe 'initialize', (event, api) -> api.subscribe self.bindings, self
+    @api.subscribe 'initialize',
+      ((event, api) -> api.subscribe @bindings, @), @
 
     @container = new Carousel.Container(this)
 

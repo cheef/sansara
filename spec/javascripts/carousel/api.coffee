@@ -9,32 +9,12 @@ describe 'Carousel.Api', ->
     it "should has '#{method}' public method", ->
       expect( eval("typeof this.api.#{method}") ).toBe 'function'
 
-  describe "when subscribe to the event", ->
-    beforeEach ->
-      spyOn @carousel, 'subscribe'
-      @event = 'test'
-      @callback = ->
-      @api.subscribe @event, @callback
-    it "should provide it to the carousel", ->
-      expect(@carousel.subscribe).toHaveBeenCalled()
-    it "and with same arguments", ->
-      expect(@carousel.subscribe).toHaveBeenCalledWith @event, @callback
-
-    describe "that can be called", ->
-      beforeEach ->
-        spyOn @carousel, 'trigger'
-        @api.trigger @event
-      it "should fire carousel event", ->
-        expect(@carousel.trigger).toHaveBeenCalled()
-      it "should fire carousel event with correct name", ->
-        expect(@carousel.trigger).toHaveBeenCalledWith @event
-
-  describe "with non-stub carousel", ->
+  describe "with carousel", ->
     beforeEach ->
       @sandbox = defineCarousel()
       @api = $(@sandbox).data('carousel')
 
-    describe "when subscribe", ->
+    describe "when subscribed", ->
       beforeEach ->
         @callback = ->
         @event = 'test'

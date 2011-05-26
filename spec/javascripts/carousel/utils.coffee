@@ -1,5 +1,5 @@
 describe "Carousel.Utils", ->
-  describe "method arrayFromArguments", ->
+  describe "arrayFromArguments", ->
     for arg in [ undefined, null, [] ]
       it "should expects wrong arguments like '#{arg}' and convert it to array", ->
         expect( Carousel.Utils.arrayFromArguments arg ).toEqual []
@@ -8,16 +8,39 @@ describe "Carousel.Utils", ->
       @arg = -> arguments
       expect( Carousel.Utils.arrayFromArguments @arg ).toEqual []
 
-  describe "method parseMixedArguments", ->
-    beforeEach ->
-      @arg = ['method', -> ]
+  describe "parseMixedArguments", ->
+    describe "when called with hash as first argument", ->
+      describe "without context", ->
+        beforeEach ->
+          @arg = [ method: -> ]
+          @result = Carousel.Utils.parseMixedArguments(@arg)
+        it "should returns array with first element as same hash", ->
+          expect( [ @result[0] ] ).toEqual @arg
+        it "should returns array with second element as undefined", ->
+          expect( @result[1] ).not.toBeDefined()
+      describe "with context", ->
+        beforeEach ->
+          @context = 'test'
+          @arg = [ { method: -> }, @context]
+          @result = Carousel.Utils.parseMixedArguments(@arg)
+        it "should returns array with second element as context", ->
+          expect( @result[1] ).toEqual @context
 
-    it "should convert arguments to hash", ->
-      expect( typeof Carousel.Utils.parseMixedArguments(@arg) ).toEqual 'object'
-
-    it "should correctly convert two-arguments execution", ->
-      expect( Carousel.Utils.parseMixedArguments(@arg).method ).toBeDefined()
-
-    it "should correctly convert one-argument execution", ->
-      @arg = [ method: -> ]
-      expect( Carousel.Utils.parseMixedArguments(@arg).method ).toBeDefined()
+    describe "when called with string as first argument and function as second", ->
+      beforeEach -> @callback = ->
+      describe "without context", ->
+        beforeEach ->
+         @method = 'method'
+         @arg = [@method, @callback ]
+         @result = Carousel.Utils.parseMixedArguments(@arg)
+        it "should returns array with first element as hash", ->
+          hash = {}
+          hash[@method] = @callback
+          expect( @result[0] ).toEqual hash
+      describe "with context", ->
+        beforeEach ->
+          @context = 'test'
+          @arg = ['method', @callback, @context]
+          @result = Carousel.Utils.parseMixedArguments(@arg)
+        it "should returns array with second element as context", ->
+          expect( @result[1] ).toEqual @context
