@@ -14,7 +14,7 @@ class Carousel.Api
     this.debug "Triggering the '#{name}' event with", params, ->
       $(@carousel.element).triggerHandler(name, params)
   debug: (message, params, callback)->
-    window.console.log(message, params) if window.console && @carousel.params.debug
+    window.console.log(message, params) if window.console? && @carousel.params.debug
     callback.call this
 
   # Examples:

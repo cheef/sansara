@@ -1,7 +1,7 @@
 class Carousel.Container
   constructor: (@carousel) ->
     @element = @carousel.element
-    @carousel.api.subscribe 'initialize',
+    @carousel.api.subscribe 'initialize.container',
       ((event, api) -> api.subscribe @bindings, @), @
 
   bindings:
@@ -18,20 +18,6 @@ class Carousel.Container
         .addClass('b-carousel-items')
         .css width: this.width()
       api.move(to: 1)
-
-    'draw.controls': (event, api) ->
-      $(@wrapper.element).prepend $('<div>').
-        addClass('b-carousel-control').
-        addClass('b-carousel-left-control').
-        html('&larr;')
-        .click -> api.previous()
-
-      $(@wrapper.element).append  $('<div>').
-        addClass('b-carousel-control').
-        addClass('b-carousel-right-control').
-        html('&rarr;')
-        .click -> api.next()
-
 
   width: -> this.items().length * @viewport.width()
   items: -> $(@element).children('li')

@@ -3,29 +3,31 @@ class Carousel
     @params = $.extend(params || {}, @defaults)
 
     @api = new Carousel.Api(this)
-    @api.subscribe 'initialize',
+    @api.subscribe 'initialize.carousel',
       ((event, api) -> api.subscribe @bindings, @), @
 
-    @container = new Carousel.Container(this)
+    @container     = new Carousel.Container(this)
+    @pluginManager = new Carousel.PluginManager(this)
 
     @api.trigger 'initialize'
     @api.trigger 'draw' if @params.autorun
     @current = 1
 
   bindings:
-    draw: (event, api) ->
-    next: (event, api) ->
+    'draw.item': (event, api) ->
+    'next.item': (event, api) ->
       api.trigger 'move', to: @current + 1
-    move: (event, api, params) ->
+    'move.item': (event, api, params) ->
       $(@container.element).animate
         left: -(@container.viewport.width() * params.to) + @container.viewport.width()
       @current = params.to
-    previous: (event, api) ->
+    'previous.item': (event, api) ->
       api.trigger 'move', to: @current - 1
 
   defaults:
     direction: 'horizontal'
     autorun: true
+    theme: 'Default'
 
 $.fn.carousel = (params) ->
   this.each ->
