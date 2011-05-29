@@ -7,7 +7,7 @@ class Carousel
       ((event, api) -> api.subscribe @bindings, @), @
 
     @container     = new Carousel.Container(this)
-    @pluginManager = new Carousel.PluginManager(this)
+    @pluginManager = new Carousel.PluginManager(@api)
 
     @api.trigger 'initialize'
     @api.trigger 'draw' if @params.autorun
@@ -27,6 +27,9 @@ class Carousel
   defaults:
     autorun: true
     theme: 'Default'
+
+  items: ->
+    @container.items()
 
 $.fn.carousel = (params) ->
   this.each ->

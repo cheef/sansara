@@ -9,7 +9,7 @@ class Carousel.Plugins.ThemeRoller
       try
         name  = api.carousel.params.theme
         klass = new this.findTheme(name)
-        @theme = new klass(@api)
+        @api.theme = new klass(@api)
       catch error
         window.console.error(error) if window.console?
 
@@ -17,10 +17,10 @@ class Carousel.Plugins.ThemeRoller
 
   bindings:
     'draw.theme': (event, api) ->
-      @theme.enable()
+      api.theme.enable()
 
   findTheme: (name) ->
     theme = null
     $.each Carousel.Themes, ->
-      theme = this if this.name isnt "" and this.name is name
+      theme = this if this.name isnt '' and this.name is name
     theme

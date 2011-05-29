@@ -19,3 +19,7 @@ defineCarousel = (params = {}) ->
 
   sandbox = setCarouselSandbox()
   sandbox.carousel $.extend(defaults, params)
+
+apiStub = ->
+  subscribe: ->
+  carousel: {}
