@@ -1,6 +1,6 @@
 class Carousel
   constructor: (@element, params) ->
-    @params = $.extend(params || {}, @defaults)
+    @params = $.extend(@defaults, params || {})
 
     @api = new Carousel.Api(this)
     @api.subscribe 'initialize.carousel',
@@ -25,7 +25,6 @@ class Carousel
       api.trigger 'move', to: @current - 1
 
   defaults:
-    direction: 'horizontal'
     autorun: true
     theme: 'Default'
 

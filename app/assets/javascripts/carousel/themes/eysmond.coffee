@@ -1,4 +1,4 @@
-class Carousel.Themes.Default
+class Carousel.Themes.Eysmond
   constructor: (@api) ->
   enable: ->
     api = @api
@@ -7,14 +7,12 @@ class Carousel.Themes.Default
     $(@api.carousel.container.wrapper.element).prepend $('<div>').
       addClass('b-carousel-control').
       addClass('b-carousel-left-control').
-      html('&larr;').
       click -> api.previous()
 
     $(@api.carousel.container.wrapper.element).append  $('<div>').
       addClass('b-carousel-control').
       addClass('b-carousel-right-control').
-      html('&rarr;').
       click -> api.next()
 
   defaults:
-    domClass: 'b-carousel-default-theme'
+    domClass: 'b-carousel-eysmond-theme'

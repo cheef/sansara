@@ -1,11 +1,29 @@
-%ul.carousel
-  - 5.times do
-    %li= image_tag 'http://placekitten.com/250/200'
+#default-carousel.l-carousel-demo
+  %h1 Default Theme
 
-:javascript
-  $('.carousel').carousel({
-    width:  250,
-    height: 204,
+  %ul.carousel
+    - 5.times do
+      %li= image_tag 'http://placekitten.com/250/200'
 
-    debug: true
-  });
+  :javascript
+    $('#default-carousel ul').carousel({
+      width:  250,
+      height: 204
+    });
+
+#eysmond-carousel.l-carousel-demo
+  %h1 Eysmond Theme
+
+  %ul.b-eysmond-carosel
+    - 5.times do
+      %li
+        %a kitty
+
+  :javascript
+    $('#eysmond-carousel ul').carousel({
+      width:  70,
+      height: 78,
+      theme: 'Eysmond',
+
+      debug: true
+    });
