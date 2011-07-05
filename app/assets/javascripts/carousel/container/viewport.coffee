@@ -1,1 +1,0 @@
-class Carousel.Container.Viewport extends Carousel.Container.Base
