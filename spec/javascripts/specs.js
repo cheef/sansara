@@ -1,1 +1,1 @@
-//= require_tree ./carousel
+//= require_tree ./sansara
