@@ -1,5 +1,9 @@
 //= require sansara/sansara
+//= require sansara/utils
 //= require sansara/plugin
 //= require sansara/widget
 //= require sansara/jquery
+//= require sansara/api
 //= require sansara/widgets/horizontal
+//= require sansara/widgets/horizontal/viewport
+//= require sansara/widgets/horizontal/wrapper

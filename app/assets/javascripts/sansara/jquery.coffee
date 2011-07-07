@@ -5,7 +5,7 @@ $.sansara = (selector, params) ->
 
 $.sansara.widgets = {}
 $.sansara.widget  = (name, methods) ->
-  $.sansara.widgets[ name ] = new Sansara.Widget(methods)
+  $.sansara.widgets[ name ] = new Sansara.Widget(name, methods)
 
 $.sansara.plugins = {}
 $.sansara.plugin  = (name, methods) ->
