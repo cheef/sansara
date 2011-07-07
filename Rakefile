@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-JqueryCarousel::Application.load_tasks
+Sansara::Application.load_tasks

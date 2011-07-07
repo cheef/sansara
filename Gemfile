@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "rails",  "3.1.0.rc4"
+gem "rails", "3.1.0.rc4"
 gem 'sqlite3'
 
 gem 'sass'
