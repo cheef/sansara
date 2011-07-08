@@ -6,14 +6,15 @@ class Sansara.Api
   move: (params) -> this.trigger 'move', params
   previous:      -> this.trigger 'previous'
 
-  trigger:   ->
+  trigger: ->
     params = Sansara.Utils.arrayFromArguments(arguments)
     name   = params.shift()
     throw "Trigger method should be called with event name" unless name?
     params.unshift this
     this.debug "Triggering the '#{name}' event with", params, ->
       $(@element).triggerHandler(name, params)
-  debug: (message, params, callback)->
+
+  debug: (message, params, callback) ->
     window.console.log(message, params) if window.console? && @params.debug
     callback.call this
 
