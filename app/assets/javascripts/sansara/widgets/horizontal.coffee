@@ -22,9 +22,7 @@ $.sansara.widget 'horizontal',
       @wrapper.draw()
 
     'draw.container': (event, api) ->
-      $(api.element)
-        .addClass('b-sansara-items')
-        .css width: this.width()
+      $(api.element).addClass('b-sansara-items')
       api.move(to: 1)
 
     'initialize.controls': (event, api) ->
@@ -36,13 +34,28 @@ $.sansara.widget 'horizontal',
 
     'draw.controls': (event, api) ->
       @wrapper.element.prepend @controlPrevious.template
-      @controlPrevious.element = @wrapper.element.prev()
+      @controlPrevious.element = @wrapper.element.find('.b-sansara-control-previous')
+      @controlPrevious.element.click -> api.previous()
 
       @wrapper.element.append @controlNext.template
-      @controlNext.element = @wrapper.element.next()
+      @controlNext.element = @wrapper.element.find('.b-sansara-control-next')
+      @controlNext.element.click -> api.next()
 
     'draw.theme': (event, api) ->
       @wrapper.layout.addClass ['l-sansara', api.params.theme, 'theme'].join('-')
+
+    'draw.width': (event, api) ->
+      width = api.params.width
+      $(api.element).css width: width * this.items().length
+
+      $([ $(api.element).find('li'), @viewport.element, @viewport.layout ]).each ->
+        this.css width: width
+
+    'draw.height': (event, api) ->
+      height = api.params.height
+      $(api.element).find('li').css height: height
+      @viewport.element.css height: height
+
 
   width: -> this.items().length * @viewport.width()
   items: -> $(@api.element).children('li')

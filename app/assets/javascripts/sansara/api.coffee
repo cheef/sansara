@@ -3,8 +3,9 @@ class Sansara.Api
 
   draw: -> this.trigger 'draw'
   next: -> this.trigger 'next'
-  move: (params) -> this.trigger 'move', params
-  previous:      -> this.trigger 'previous'
+  move: (params)   -> this.trigger 'move', params
+  scroll: (params) -> this.trigger 'scroll', params
+  previous:        -> this.trigger 'previous'
 
   trigger: ->
     params = Sansara.Utils.arrayFromArguments(arguments)
