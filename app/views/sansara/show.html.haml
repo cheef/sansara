@@ -1,29 +1,14 @@
-#default-carousel.l-carousel-demo
-  %h1 Default Theme
+#sansara-jquery-carousel.l-sansara-demo
+  .b-sansara-demo
+    %h1 jQuery Carousel Theme
 
-  %ul.carousel
-    - 5.times do
-      %li= image_tag 'http://placekitten.com/250/200'
+    %ul
+      - 5.times do
+        %li= image_tag 'http://placekitten.com/250/200'
 
   :javascript
-    $('#default-carousel ul').sansara({
+    $('#sansara-jquery-carousel ul').sansara({
       width:  250,
-      height: 204
-    });
-
-#eysmond-carousel.l-carousel-demo
-  %h1 Eysmond Theme
-
-  %ul.b-eysmond-carosel
-    - 5.times do
-      %li
-        %a kitty
-
-  :javascript
-    $('#eysmond-carousel ul').sansara({
-      width:  70,
-      height: 78,
-      theme: 'Eysmond',
-
-      debug: true
+      height: 200,
+      theme: 'jquery-carousel'
     });
