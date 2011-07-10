@@ -5,7 +5,7 @@ describe 'Sansara.Api', ->
 
   for method in [ 'trigger', 'subscribe', 'next', 'previous' ]
     it "should has '#{method}' public method", ->
-      expect( typeof @api[ method ] ).toBe 'function'
+      expect( $.isFunction(@api[ method ]) ).toBeTruthy()
 
   describe "subscribe", ->
 

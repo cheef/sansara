@@ -2,7 +2,7 @@ Sansara.Widget.Horizontal = {}
 
 $.sansara.widget 'horizontal',
 
-  plugins: []
+  plugins: [ 'moveable' ]
 
   enable: (@api) ->
     api.subscribe @bindings, this

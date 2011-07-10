@@ -1,38 +1,42 @@
 class window.Sansara
+
   constructor: (element, params) ->
     @api = new Sansara.Api(element, this.mergeParams(params))
 
-    this.initializeWidget()
-    this.initializePlugins()
+    this.enableWidget()
+    this.enablePlugins()
 
-    @api.subscribe @bindings, this
     @api.trigger 'initialize'
     @api.trigger 'draw' if this.isAutorun()
 
-  initializeWidget: ->
+  enableWidget: ->
     @api.widget = $.sansara.widgets[ @api.params.widget ]
     @api.widget.enable(@api)
 
-  initializePlugins: ->
+  enablePlugins: ->
+    for pluginName in this.selectedPluginNames()
+      plugin = $.sansara.plugins[ pluginName ]
+
+      if not plugin
+        window.console.error "Plugin '#{pluginName}' not found" if window.console?
+      else
+        this.enablePlugin plugin
+
+  enablePlugin: (plugin) ->
+    try
+      plugin.enable(@api)
+      @api.plugins[ plugin.name ] = plugin
+    catch error
+      window.console.error "Plugin '#{pluginName}' not enabled, because of error: #{error}" if window.console?
+
+  selectedPluginNames: ->
+    pluginNames = $.merge [], @api.widget.plugins || []
+    pluginNames = $.merge pluginNames, @api.params.plugins || []
 
   mergeParams: (params) ->
-    $.extend {}, params || {}, @defaults
+    $.extend {}, @defaults, params || {}
 
   isAutorun: -> @api.params.autorun is true
-
-  bindings:
-    'draw.item': (event, api) ->
-    'next.item': (event, api) ->
-      api.trigger 'scroll', to: @current + 1
-    'scroll.item': (event, api, params) ->
-      $(api.element).animate
-        left: -(api.widget.viewport.width() * params.to) + api.widget.viewport.width()
-      @current = params.to
-    'move.item': (event, api, params) ->
-      $(api.element).css left: -(api.widget.viewport.width() * params.to) + api.widget.viewport.width()
-      @current = params.to
-    'previous.item': (event, api) ->
-      api.trigger 'scroll', to: @current - 1
 
   defaults:
     autorun: true

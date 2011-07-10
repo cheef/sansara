@@ -18,3 +18,6 @@ window.apiMock = (params = {})->
 window.sansaraMock = (params = {}) ->
   element = $(mockSandbox()).sansara params
   element.data('sansara')
+
+window.sansaraPlugin = (name, methods = {}) ->
+  $.sansara.plugin name, methods

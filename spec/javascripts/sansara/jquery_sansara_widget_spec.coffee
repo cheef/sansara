@@ -1,7 +1,7 @@
 describe "$.sansara.widget", ->
 
   it "should be widget constuctor", ->
-    expect(typeof $.sansara.widget).toBe 'function'
+    expect( $.isFunction($.sansara.widget) ).toBeTruthy()
 
   describe "when calling", ->
 
@@ -15,7 +15,7 @@ describe "$.sansara.widget", ->
       $.sansara.widget @name, methods
 
     it "should add new widget to the collection", ->
-      expect(typeof $.sansara.widgets[ @name ]).toBe 'object'
+      expect( $.type($.sansara.widgets[ @name ]) ).toBe 'object'
 
     describe "added widget", ->
       beforeEach ->
@@ -25,4 +25,4 @@ describe "$.sansara.widget", ->
         expect(@widget instanceof Sansara.Widget).toBeTruthy()
 
       it "should extend base Widget with new methods", ->
-        expect(typeof @widget[ @method ]).toBe 'function'
+        expect( $.isFunction(@widget[ @method ]) ).toBeTruthy()

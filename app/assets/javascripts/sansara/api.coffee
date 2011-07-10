@@ -1,6 +1,8 @@
 class Sansara.Api
   constructor: (@element, @params) ->
 
+  plugins: {}
+
   draw: -> this.trigger 'draw'
   next: -> this.trigger 'next'
   move: (params)   -> this.trigger 'move', params
