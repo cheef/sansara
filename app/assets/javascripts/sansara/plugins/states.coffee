@@ -1,10 +1,8 @@
 $.sansara.plugin 'states',
 
-  enable: (@api) ->
-    @api.subscribe @bindings, this
+  events:
 
-  bindings:
-    'move.plugin.states': (event, api) ->
+    'move.states': (event, api) ->
       switch
         when api.widget.items().length is api.current
           api.trigger('tail')

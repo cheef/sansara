@@ -1,11 +1,6 @@
 $.sansara.plugin 'moveable',
 
-  enable: (@api) ->
-    @api.subscribe @bindings, @api
-
-  methods:
-
-  bindings:
+  events:
 
     'draw.moveable': ->
       @current = 1
@@ -25,3 +20,11 @@ $.sansara.plugin 'moveable',
 
     'previous.moveable': (event, api) ->
       api.trigger 'scroll', to: @current - 1
+
+  methods:
+
+    draw: -> this.trigger 'draw'
+    next: -> this.trigger 'next'
+    move: (params)   -> this.trigger 'move', params
+    scroll: (params) -> this.trigger 'scroll', params
+    previous:        -> this.trigger 'previous'

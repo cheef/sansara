@@ -41,4 +41,4 @@ class window.Sansara
   defaults:
     autorun: true
     widget: 'horizontal'
-    debug: true
+    debug: false

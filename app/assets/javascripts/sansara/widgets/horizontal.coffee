@@ -2,12 +2,9 @@ Sansara.Widget.Horizontal = {}
 
 $.sansara.widget 'horizontal',
 
-  plugins: [ 'moveable' ]
+  plugins: [ 'moveable', 'states' ]
 
-  enable: (@api) ->
-    api.subscribe @bindings, this
-
-  bindings:
+  events:
 
     'initialize.viewport': (event, api) ->
       @viewport = new Sansara.Widget.Horizontal.Viewport(this)
@@ -55,7 +52,6 @@ $.sansara.widget 'horizontal',
       height = api.params.height
       $(api.element).find('li').css height: height
       @viewport.element.css height: height
-
 
   width: -> this.items().length * @viewport.width()
   items: -> $(@api.element).children('li')

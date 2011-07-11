@@ -1,13 +1,12 @@
 class Sansara.Api
+
   constructor: (@element, @params) ->
 
   plugins: {}
 
-  draw: -> this.trigger 'draw'
-  next: -> this.trigger 'next'
-  move: (params)   -> this.trigger 'move', params
-  scroll: (params) -> this.trigger 'scroll', params
-  previous:        -> this.trigger 'previous'
+  debug: (message, params, callback) ->
+    window.console.log(message, params) if window.console? && @params.debug
+    callback.call this
 
   trigger: ->
     params = Sansara.Utils.arrayFromArguments(arguments)
@@ -16,10 +15,6 @@ class Sansara.Api
     params.unshift this
     this.debug "Triggering the '#{name}' event with", params, ->
       $(@element).triggerHandler(name, params)
-
-  debug: (message, params, callback) ->
-    window.console.log(message, params) if window.console? && @params.debug
-    callback.call this
 
   # Examples:
   #
