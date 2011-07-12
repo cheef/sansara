@@ -2,7 +2,7 @@ Sansara.Widget.Horizontal = {}
 
 $.sansara.widget 'horizontal',
 
-  plugins: [ 'moveable', 'states' ]
+  plugins: [ 'theme-roller', 'moveable', 'states' ]
 
   events:
 
@@ -40,11 +40,13 @@ $.sansara.widget 'horizontal',
       @controlNext.element = @wrapper.element.find('.b-sansara-control-next')
       @controlNext.element.click -> api.next()
 
-    'draw.theme': (event, api) ->
-      @wrapper.layout.addClass ['l-sansara', api.params.theme, 'theme'].join('-')
+    'draw.width': (event, api, params = {}) ->
+      # width correction
+      api.element.find('li img:first').load ->
+        correctedWidth = $(this).width()
+        api.trigger('draw.width', width: correctedWidth) if correctedWidth isnt api.width
 
-    'draw.width': (event, api) ->
-      api.width = api.params.width
+      api.width = params.width || api.params.width || api.items.width()
       @width    = api.width * api.items.length
 
       api.element.css width: @width
@@ -52,8 +54,13 @@ $.sansara.widget 'horizontal',
       $([ api.items, @viewport.element, @viewport.layout ]).each ->
         this.css width: api.width
 
-    'draw.height': (event, api) ->
-      api.height = api.params.height
+    'draw.height': (event, api, params = {}) ->
+      # height correction
+      api.element.find('li img:first').load ->
+        correctedHeight = $(this).height()
+        api.trigger('draw.height', height: correctedHeight) if correctedHeight isnt api.height
+
+      api.height = params.height || api.params.height || api.items.height()
       $([ api.items, @viewport.element, @viewport.layout ]).each ->
         this.css height: api.height
 
