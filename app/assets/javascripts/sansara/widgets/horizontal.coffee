@@ -6,6 +6,9 @@ $.sansara.widget 'horizontal',
 
   events:
 
+    'initialize.items': (event, api) ->
+      api.items = api.element.find('li')
+
     'initialize.viewport': (event, api) ->
       @viewport = new Sansara.Widget.Horizontal.Viewport(this)
 
@@ -19,8 +22,7 @@ $.sansara.widget 'horizontal',
       @wrapper.draw()
 
     'draw.container': (event, api) ->
-      $(api.element).addClass('b-sansara-items')
-      api.move(to: 1)
+      api.element.addClass('b-sansara-items')
 
     'initialize.controls': (event, api) ->
       @controlPrevious = new Sansara.Widget.Horizontal.Control(this)
@@ -42,16 +44,38 @@ $.sansara.widget 'horizontal',
       @wrapper.layout.addClass ['l-sansara', api.params.theme, 'theme'].join('-')
 
     'draw.width': (event, api) ->
-      width = api.params.width
-      $(api.element).css width: width * this.items().length
+      api.width = api.params.width
+      @width    = api.width * api.items.length
 
-      $([ $(api.element).find('li'), @viewport.element, @viewport.layout ]).each ->
-        this.css width: width
+      api.element.css width: @width
+
+      $([ api.items, @viewport.element, @viewport.layout ]).each ->
+        this.css width: api.width
 
     'draw.height': (event, api) ->
-      height = api.params.height
-      $(api.element).find('li').css height: height
-      @viewport.element.css height: height
+      api.height = api.params.height
+      $([ api.items, @viewport.element, @viewport.layout ]).each ->
+        this.css height: api.height
 
-  width: -> this.items().length * @viewport.width()
-  items: -> $(@api.element).children('li')
+    'move.controls': (event, api) ->
+      this.undisableControls()
+
+    'scroll.controls': (event, api) ->
+      this.undisableControls()
+
+    'tail.controls': (event, api) ->
+      this.disableControl @controlNext
+
+    'head.controls': (event, api) ->
+      this.disableControl @controlPrevious
+
+  disabledControlDomClass: 'b-sansara-control-disabled'
+
+  disableControl: (control) ->
+    control.element.prop 'disabled', true
+    control.element.addClass @disabledControlDomClass
+
+  undisableControls: ->
+    for item in [ @controlNext.element, @controlPrevious.element ]
+      item.prop 'disabled', false
+      item.removeClass @disabledControlDomClass

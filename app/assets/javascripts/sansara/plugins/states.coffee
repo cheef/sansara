@@ -3,8 +3,14 @@ $.sansara.plugin 'states',
   events:
 
     'move.states': (event, api) ->
-      switch
-        when api.widget.items().length is api.current
-          api.trigger('tail')
-        when api.current is 1
-          api.trigger('head')
+      @plugins['states'].detectState.call api
+
+    'scroll.states': (event, api) ->
+      @plugins['states'].detectState.call api
+
+  detectState: ->
+    switch
+      when @items.length is @currentItemPosition
+        this.trigger 'tail'
+      when @currentItemPosition is 1
+        this.trigger 'head'

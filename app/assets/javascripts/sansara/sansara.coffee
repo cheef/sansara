@@ -1,7 +1,7 @@
 class window.Sansara
 
   constructor: (element, params) ->
-    @api = new Sansara.Api(element, this.mergeParams(params))
+    @api = new Sansara.Api $(element), this.mergeParams(params)
 
     this.enableWidget()
     this.enablePlugins()

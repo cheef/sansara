@@ -2,28 +2,39 @@ $.sansara.plugin 'moveable',
 
   events:
 
-    'draw.moveable': ->
-      @current = 1
+    'initialize.moveable': (event, api) ->
+      @currentItemPosition = 0
 
-    'next.moveable': (event, api) ->
-      api.trigger 'scroll', to: @current + 1
+    'draw.moveable': (event, api) ->
+      api.move position: 1
 
     'scroll.moveable': (event, api, params) ->
-      $(api.element).animate
-        left: -(api.widget.viewport.width() * params.to) + api.widget.viewport.width()
-      @current = params.to
+      @plugins['moveable'].parseMoveParams.call api, params
+      @element.animate
+        left: -api.width * (@currentItemPosition - 1)
 
     'move.moveable': (event, api, params) ->
-      $(api.element).css
-        left: -(api.widget.viewport.width() * params.to) + api.widget.viewport.width()
-      @current = params.to
+      @plugins['moveable'].parseMoveParams.call api, params
+      @element.css
+        left: -api.width * (@currentItemPosition - 1)
+
+    'next.moveable': (event, api) ->
+      api.trigger 'scroll', position: @currentItemPosition + 1
 
     'previous.moveable': (event, api) ->
-      api.trigger 'scroll', to: @current - 1
+      api.trigger 'scroll', position: @currentItemPosition - 1
+
+  parseMoveParams: (params) ->
+    if params.to?
+      @currentItem = params.to
+      @currentItemPosition = @items.indexOf(@currentItem) + 1
+
+    if params.position?
+      @currentItemPosition = params.position
+      @currentItem  = @items[ @currentItemPosition - 1 ]
 
   methods:
 
-    draw: -> this.trigger 'draw'
     next: -> this.trigger 'next'
     move: (params)   -> this.trigger 'move', params
     scroll: (params) -> this.trigger 'scroll', params
