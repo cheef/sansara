@@ -12,8 +12,10 @@ Sansara::Application.configure do
   config.serve_static_assets = false
 
   # Compress both stylesheets and JavaScripts
-  config.assets.js_compressor  = :uglifier
-  config.assets.css_compressor = :scss
+  # config.assets.js_compressor  = :uglifier
+  # config.assets.css_compressor = :scss
+  # config.assets.precompile = %w(sansara.js sansara.css)
+  config.sass.line_comments = false
 
   # Specifies the header that your server uses for sending files
   # (comment out if your front-end server doesn't support this)

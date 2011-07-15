@@ -9,6 +9,7 @@ gem 'uglifier'
 
 gem 'jquery-rails'
 gem 'haml'
+gem 'sass-rails'
 
 group :test do
   gem 'turn', :require => false
