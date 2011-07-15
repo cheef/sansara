@@ -1,0 +1,8 @@
+.bundle
+dev/db/*.sqlite3
+dev/log/*.log
+dev/tmp/
+.idea
+.sass-cache
+Gemfile.lock
+dev/public/assets

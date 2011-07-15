@@ -1,0 +1,15 @@
+server_url: 'http://localhost:3000'
+
+src_files:
+  - assets/jasmine-jquery.js
+  - assets/application.js
+  - assets/sansara.js
+
+stylesheets:
+  - assets/application.css
+
+helpers:
+  - assets/helpers.js
+
+spec_files:
+  - assets/specs.js
