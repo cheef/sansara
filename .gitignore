@@ -1,8 +1,8 @@
 .bundle
-db/*.sqlite3
-log/*.log
-tmp/
+dev/db/*.sqlite3
+dev/log/*.log
+dev/tmp/
 .idea
 .sass-cache
 Gemfile.lock
-public/assets
+dev/public/assets
