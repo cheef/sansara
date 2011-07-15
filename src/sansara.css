@@ -1,34 +1,27 @@
 .l-sansara {
   position: relative;
   display: inline-block;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .b-sansara .b-sansara-control {
   width: 20px;
-  cursor: pointer;
-}
+  cursor: pointer; }
 .b-sansara .b-sansara-control, .b-sansara .l-sansara-viewport {
-  display: inline-block;
-}
+  display: inline-block; }
 .b-sansara .l-sansara-viewport {
-  overflow: hidden;
-}
-.b-sansara .l-sansara-viewport .b-sansara-viewport {
-  overflow: hidden;
-  position: relative;
-}
-.b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-}
-.b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items li {
-  margin: 0;
-  padding: 0;
-  float: left;
-}
+  overflow: hidden; }
+  .b-sansara .l-sansara-viewport .b-sansara-viewport {
+    overflow: hidden;
+    position: relative; }
+    .b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      position: relative; }
+      .b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items li {
+        margin: 0;
+        padding: 0;
+        float: left; }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control {
   width: 40px;
   height: 40px;
@@ -37,45 +30,34 @@
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0 6px;
-}
+  padding: 0 6px; }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control-previous {
-  background-image: url("themes/jquery-carousel/prev.png");
-}
+  background-image: url("themes/jquery-carousel/prev.png"); }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control-next {
-  background-image: url("themes/jquery-carousel/next.png");
-}
+  background-image: url("themes/jquery-carousel/next.png"); }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control, .l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport {
   display: inline-block;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control::-moz-focus-inner {
-  border: 0px;
-}
+  border: 0px; }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control, .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control:focus {
-  outline: none;
-}
+  outline: none; }
 .l-sansara-jquery-carousel-theme .b-sansara .b-sansara-control-disabled {
   opacity: 0.1;
-  cursor: default;
-}
+  cursor: default; }
 .l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport {
-  border: 1px solid #4f4f4f;
-}
-.l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport .b-sansara-viewport {
-  overflow: hidden;
-  position: relative;
-}
-.l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-}
-.l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items li {
-  margin: 0;
-  padding: 0;
-  float: left;
-}
+  border: 1px solid #4f4f4f; }
+  .l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport .b-sansara-viewport {
+    overflow: hidden;
+    position: relative; }
+    .l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      position: relative; }
+      .l-sansara-jquery-carousel-theme .b-sansara .l-sansara-viewport .b-sansara-viewport .b-sansara-items li {
+        margin: 0;
+        padding: 0;
+        float: left; }
 /*
 */

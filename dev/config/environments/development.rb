@@ -19,6 +19,7 @@ Sansara::Application.configure do
   config.assets.precompile  += [ /\w+\.(png|gif)/ ]
 
   config.sass.line_comments = false
+  config.sass.style = :nested
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
