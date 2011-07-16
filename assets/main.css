@@ -16,13 +16,22 @@ h3 { text-align: center; color: #bc9293; }
 a { color: #bc9293; }
 .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
 .download { float: right; }
-pre { background: #000; color: #fff; padding: 15px;}
 hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
 .footer { text-align:center; padding-top:30px; font-style: italic; }
 
 .demo-block {
-  padding: 2em;
+  padding: 1em 2em 2em;
 }
+
+code, pre, tt, textarea {
+  color: #115555;
+  font-family: Monaco,Consolas,"Lucida Console",monospace;
+  font-size: 12px;
+  line-height: 18px;
+  word-wrap: break-word;
+}
+
+pre { background: #000; color: #fff; padding: 15px;}
 
 .jquery-carousel-demo {
   background-color: #1F1F1F;
