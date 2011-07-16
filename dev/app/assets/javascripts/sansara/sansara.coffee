@@ -10,22 +10,33 @@ class window.Sansara
     @api.trigger 'draw' if this.isAutorun()
 
   enableWidget: ->
-    @api.widget = $.sansara.widgets[ @api.params.widget ]
-    @api.widget.enable(@api)
+    widgetName = @api.params.widget
+    widgetExtends = $.sansara.widgets[ widgetName ]
+
+    if widgetExtends?
+      widget = new Sansara.Widget(widgetName, widgetExtends)
+
+      @api.debug "Enabling '#{widgetName}' widget", widget, ->
+        @widget = widget
+        @widget.enable(this)
+    else
+      window.console.error "Widget '#{widgetName}' not found" if window.console?
 
   enablePlugins: ->
     for pluginName in this.selectedPluginNames()
-      plugin = $.sansara.plugins[ pluginName ]
+      pluginExtends = $.sansara.plugins[ pluginName ]
 
-      if not plugin
-        window.console.error "Plugin '#{pluginName}' not found" if window.console?
+      if pluginExtends?
+        this.enablePlugin new Sansara.Plugin(pluginName, pluginExtends)
       else
-        this.enablePlugin plugin
+        window.console.error "Plugin '#{pluginName}' not found" if window.console?
 
   enablePlugin: (plugin) ->
     try
-      plugin.enable(@api)
-      @api.plugins[ plugin.name ] = plugin
+      @api.debug "Enabling '#{plugin.name}' plugin", plugin, ->
+        plugin.enable(this)
+        @plugins[ plugin.name ] = plugin
+
     catch error
       window.console.error "Plugin '#{pluginName}' not enabled, because of error: #{error}" if window.console?
 
@@ -42,3 +53,6 @@ class window.Sansara
     autorun: true
     widget: 'horizontal'
     debug: false
+    theme: 'jquery-carousel'
+    size: 1
+    sizesAutoCorrection: true

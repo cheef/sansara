@@ -1,13 +1,29 @@
 #sansara-jquery-carousel.l-sansara-demo
   .b-sansara-demo
-    %h1 jQuery Carousel Theme
+    %h2 jQuery Carousel Theme
 
-    %ul
+    %ul#default-example
       - 5.times do
         %li= image_tag 'http://placekitten.com/250/200'
 
-  :javascript
-    $('#sansara-jquery-carousel ul').sansara({
-      theme: 'jquery-carousel',
-      debug: true
-    });
+    :javascript
+      $('#default-example').sansara();
+
+  .b-sansara-demo
+    %h2 Viewport size
+
+    %ul#viewport-size
+      - 6.times do
+        %li= image_tag 'http://placekitten.com/250/200'
+
+    :javascript
+      $('#viewport-size').sansara({
+        size: 2,
+        debug: true
+      });
+
+
+
+
+
+

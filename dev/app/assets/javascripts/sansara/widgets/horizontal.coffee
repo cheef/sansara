@@ -41,28 +41,40 @@ $.sansara.widget 'horizontal',
       @controlNext.element.click -> api.next()
 
     'draw.width': (event, api, params = {}) ->
-      # width correction
-      api.element.find('li img:first').load ->
-        correctedWidth = $(this).width()
-        api.trigger('draw.width', width: correctedWidth) if correctedWidth isnt api.width
+      # Width correction
+      if api.params.sizesAutoCorrection is true
+        api.element.find('li img:first').load ->
+          correctedWidth = $(this).width()
+          api.trigger('draw.width', width: correctedWidth) if correctedWidth isnt api.width
 
-      api.width = params.width || api.params.width || api.items.width()
-      @width    = api.width * api.items.length
+      # Width of single item
+      api.itemWidth = params.width || api.params.width || api.items.width()
 
-      api.element.css width: @width
+      # Width of group of items, depends on size
+      api.itemsBlockWidth = api.params.size * api.itemWidth
 
-      $([ api.items, @viewport.element, @viewport.layout ]).each ->
-        this.css width: api.width
+      # Width of items tape
+      @itemsWidth = api.itemsBlockWidth * Math.ceil(api.items.length/api.params.size)
+
+      api.element.css width: @itemsWidth
+
+      $([ @viewport.element, @viewport.layout ]).each ->
+        this.css width: api.itemsBlockWidth
+
+      api.items.css width: api.itemWidth
 
     'draw.height': (event, api, params = {}) ->
-      # height correction
-      api.element.find('li img:first').load ->
-        correctedHeight = $(this).height()
-        api.trigger('draw.height', height: correctedHeight) if correctedHeight isnt api.height
+      # Height correction
+      if api.params.sizesAutoCorrection is true
+        api.element.find('li img:first').load ->
+          correctedHeight = $(this).height()
+          api.trigger('draw.height', height: correctedHeight) if correctedHeight isnt api.height
 
-      api.height = params.height || api.params.height || api.items.height()
+      # Height of single item
+      api.itemHeight = params.height || api.params.height || api.items.height()
+
       $([ api.items, @viewport.element, @viewport.layout ]).each ->
-        this.css height: api.height
+        this.css height: api.itemHeight
 
     'move.controls': (event, api) ->
       this.undisableControls()

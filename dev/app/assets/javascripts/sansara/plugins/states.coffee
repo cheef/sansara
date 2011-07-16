@@ -10,7 +10,7 @@ $.sansara.plugin 'states',
 
   detectState: ->
     switch
-      when @items.length is @currentItemPosition
+      when Math.ceil(@items.length / @params.size) is @currentPosition
         this.trigger 'tail'
-      when @currentItemPosition is 1
+      when @currentPosition is 1
         this.trigger 'head'

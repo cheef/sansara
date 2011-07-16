@@ -8,14 +8,14 @@ $.sansara.widget  = (name, methods) ->
   unless $.type(name) is 'string'
     window.console.error "Wrong name for widget", name if window.console?
   else
-    $.sansara.widgets[ name ] = new Sansara.Widget(name, methods)
+    $.sansara.widgets[ name ] = methods
 
 $.sansara.plugins = {}
 $.sansara.plugin  = (name, methods) ->
   unless $.type(name) is 'string'
     window.console.error "Wrong name for plugin", name if window.console?
   else
-    $.sansara.plugins[ name ] = new Sansara.Plugin(name, methods)
+    $.sansara.plugins[ name ] = methods
 
 $.fn.sansara = (params) ->
   $.sansara(this, params)
